@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { loginInstance } from "@/config/axiosConfig";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 function Login() {
 
@@ -26,9 +27,10 @@ function Login() {
       password: password
     }).then(res => {
       console.log("res login GMS token: ", res.data.data.access_token);
-
+      
       localStorage.setItem('at', res.data.data.access_token);
       if(res.data.data.access_token) {
+        toast("Login success!")
         navigate('/')
       }
       // console.log("access token GMS: ", res.data.access_token)

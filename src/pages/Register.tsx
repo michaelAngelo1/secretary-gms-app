@@ -4,6 +4,7 @@ import { registerInstance } from "@/config/axiosConfig";
 import type { RegisterProps } from "@/config/interfaces";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router"; 
+import { toast } from "react-toastify";
 
 function Register() {
 
@@ -50,6 +51,7 @@ function Register() {
     }).then(res => {
       console.log("res success register: ", res.data.data.response);
       navigate('/login')
+      toast("Register success. Please login now.")
       setLoading(false)
     }).catch(e => {
       console.log("error register: ", e.response);
