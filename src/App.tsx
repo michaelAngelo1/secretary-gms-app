@@ -4,6 +4,7 @@ import Register from "./pages/Register"
 import Home from "./pages/Home"
 import { useEffect } from "react"
 import { ToastContainer } from "react-toastify"
+import Requests from "./pages/Requests"
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/requests" element={<Requests />} />
       </Routes>
       <ToastContainer />
     </div>

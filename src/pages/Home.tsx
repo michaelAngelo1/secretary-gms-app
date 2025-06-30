@@ -1,6 +1,7 @@
 import { logoutInstance } from "@/config/axiosConfig";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { jwtDecode } from "jwt-decode";
 
 function Home() {
 
@@ -29,11 +30,15 @@ function Home() {
     const at = localStorage.getItem('at');
     if(!at) {
       navigate('/login')
+    } else {
+      const decoded = jwtDecode(at);
+      console.log("decoded: ", decoded);
     }  
   }, [])
 
   return (
     <div className="w-full p-4 flex flex-col gap-4">
+      <div>Dashboard</div>
       <div className="bg-white rounded-lg shadow-lg p-4">
         <div className="text-xl font-bold">Churches</div>
         {
