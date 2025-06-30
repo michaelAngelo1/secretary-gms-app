@@ -18,7 +18,7 @@ function App() {
   }, [])
 
   return (
-    <div className="bg-slate-100 h-screen flex items-center justify-center p-4">
+    <div className="bg-slate-100 h-screen flex p-4">
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={<Login />} />

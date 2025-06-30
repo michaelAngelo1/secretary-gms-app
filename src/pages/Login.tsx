@@ -46,7 +46,7 @@ function Login() {
   }, [])
 
   return (
-    <div className="w-full lg:w-1/3 md:w-2/3 flex flex-col items-center gap-3 bg-white p-8 rounded-lg shadow-lg">
+    <div className="w-full lg:w-1/3 md:w-2/3 flex flex-col items-center gap-3 bg-white p-8 rounded-lg shadow-lg m-auto">
       <div className="text-2xl font-medium w-full text-blue-900">Secretary App</div>
       <div className="w-full">
         <div className="text-sm mb-2">Username</div>
