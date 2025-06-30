@@ -1,10 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { registerInstance } from "@/config/axiosConfig";
 import type { RegisterProps } from "@/config/interfaces";
 import { useState } from "react";
-import { Link } from "react-router"; 
+import { Link, useNavigate } from "react-router"; 
 
 function Register() {
+
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
   const [registerData, setRegisterData] = useState<RegisterProps>({
     fullname: "",
     email: "",
@@ -18,7 +23,8 @@ function Register() {
     department: "",
   });
 
-  function handleRegister() {
+  async function handleRegister() {
+    setLoading(true);
     console.log("handle register");
     if (
       registerData.username === "" ||
@@ -29,6 +35,25 @@ function Register() {
       return;
     }
     console.log("Registering user", registerData);
+
+    await registerInstance.post('', {
+      fullname: registerData.fullname,
+      email: registerData.email,
+      firstname: registerData.firstname,
+      lastname: registerData.lastname,
+      password: registerData.password,
+      username: registerData.username,
+      title: registerData.title,
+      company: registerData.company,
+      division: registerData.division,
+      department: registerData.department
+    }).then(res => {
+      console.log("res success register: ", res.data.data.response);
+      navigate('/login')
+      setLoading(false)
+    }).catch(e => {
+      console.log("error register: ", e.response);
+    })
   }
 
 
@@ -57,6 +82,33 @@ function Register() {
           onChange={handleChange}
         ></Input>
       </div>
+
+      <div className="w-full flex gap-2">
+        <div className="w-full">
+          <div className="text-sm mb-2">First name</div>
+          <Input
+            className="bg-slate-100 border-none"
+            type="text"
+            placeholder="Enter first name"
+            name="firstname" // Add name prop
+            value={registerData.firstname} // Control the input value
+            onChange={handleChange}
+          ></Input>
+        </div>
+
+        <div className="w-full">
+          <div className="text-sm mb-2">Last name</div>
+          <Input
+            className="bg-slate-100 border-none"
+            type="text"
+            placeholder="Enter last name"
+            name="lastname" // Add name prop
+            value={registerData.lastname} // Control the input value
+            onChange={handleChange}
+          ></Input>
+        </div>
+      </div>
+
       
       <div className="w-full">
         <div className="text-sm mb-2">Username</div>
@@ -143,7 +195,7 @@ function Register() {
       </div>
 
       <Button className="w-[30%] bg-blue-900" onClick={handleRegister}>
-        Register
+        {loading ? "Loading..." : "Register"}
       </Button>
       <div className="text-sm text-gray-500">
         Already have an account?{" "}
