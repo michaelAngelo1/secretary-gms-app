@@ -10,7 +10,7 @@ interface SidebarContextType {
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined)
 
 export const SidebarProvider = ({ children }: { children: ReactNode }) => {
-  const [sidebarItemSelected, setSidebarItemSelected] = useState('Home')
+  const [sidebarItemSelected, setSidebarItemSelected] = useState('Master')
   const [sidebarWiden, setSidebarWiden] = useState(false)
 
   return (
