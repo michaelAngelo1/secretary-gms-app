@@ -10,8 +10,6 @@ interface SidebarItemProps {
 
 export default function SidebarItem({
   sidebarTitle,
-  sidebarWiden,
-  iconItem,
   handleClick,
 }: SidebarItemProps) {
   return (
