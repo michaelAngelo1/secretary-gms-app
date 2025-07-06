@@ -38,8 +38,15 @@ function Home() {
     if(!at) {
       navigate('/login')
     } else {
-      const decoded = jwtDecode(at);
-      console.log("decoded: ", decoded);
+      try {
+        const decoded = jwtDecode(at);
+        if(decoded) console.log("decoded: ", decoded);
+      } catch (e) {
+        console.log("error decode token: ", e);
+        localStorage.removeItem('at');
+        navigate('/login');
+      }
+      
     }  
   }, [])
 
