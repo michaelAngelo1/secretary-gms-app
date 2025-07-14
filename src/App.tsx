@@ -8,6 +8,7 @@ import Requests from "./pages/Requests"
 import { SidebarProvider } from "./context/SidebarContext"
 import Church from "./pages/Church"
 import Speakers from "./pages/Speakers"
+import Users from "./pages/Users"
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/requests" element={<Requests />} />
           <Route path="/church" element={<Church />} />
           <Route path="/speakers" element={<Speakers />} />
+          <Route path="/users" element={<Users />} />
         </Routes>
         <ToastContainer />
       </div>

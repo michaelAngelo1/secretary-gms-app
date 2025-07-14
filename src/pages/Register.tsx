@@ -125,7 +125,6 @@ function Register() {
           onChange={handleChange}
         ></Input>
       </div>
-
       <Button className="w-[30%] bg-blue-900" onClick={handleRegister}>
         {loading ? "Loading..." : "Register"}
       </Button>

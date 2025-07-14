@@ -7,6 +7,7 @@ import { useSidebar } from "@/hooks/useSidebar";
 import Requests from "./Requests";
 import Speakers from "./Speakers";
 import Church from "./Church";
+import Users from "./Users";
 
 function Home() {
 
@@ -43,8 +44,12 @@ function Home() {
         if(decoded) console.log("decoded: ", decoded);
       } catch (e) {
         console.log("error decode token: ", e);
-        localStorage.removeItem('at');
-        navigate('/login');
+
+        // uncomment where already implemented
+        // localStorage.removeItem('at');
+
+        // Change to /login if decode token is already correct
+        navigate('/');
       }
       
     }  
@@ -116,7 +121,9 @@ function Home() {
           <Requests/>
         : sidebarItemSelected == "Speakers" ?
           <Speakers/>
-        : <Church/>
+        : sidebarItemSelected == "Church" ? 
+          <Church/>
+        : <Users/>
       }
     </div>
   )

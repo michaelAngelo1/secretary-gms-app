@@ -10,11 +10,11 @@ export default function Sidebar() {
       id="sidebar"
       onMouseEnter={() => setSidebarWiden(true)}
       onMouseLeave={() => setSidebarWiden(false)}
-      className={`z-20 transition-hover duration-300 ${
+      className={`z-20 transition-hover duration-300 rounded-xl ${
         sidebarWiden
           ? 'w-[15%] max-mobile:w-full max-mobile:absolute max-mobile:inset-0 max-mobile:z-40 border-r-2'
           : 'w-[15%] max-mobile:w-0 max-mobile:p-0 '
-      } bg-transparent p-4 max-mobile:p-0 border-accent overflow-auto border-r-2 max-mobile:border-r-0`}
+      } bg-blue-900 p-4 max-mobile:p-0 border-accent overflow-auto border-r-2 max-mobile:border-r-0`}
     >
       <div className="flex flex-col space-y-6 max-mobile:m-4">
         <SidebarItem
@@ -26,7 +26,7 @@ export default function Sidebar() {
             // navigate('/dashboard')
             // window.location.pathname = ""
           }}
-          iconItem="home-alt"
+          iconItem="FaChessQueen"
         />
         <SidebarItem
           sidebarTitle="Requests"
@@ -37,7 +37,7 @@ export default function Sidebar() {
             // navigate('/requests')
             // window.location.pathname = "/requests"
           }}
-          iconItem="tasks"
+          iconItem="FaList"
         />
         <SidebarItem
           sidebarTitle="Church"
@@ -48,7 +48,7 @@ export default function Sidebar() {
             // navigate('/church')
             // window.location.pathname = "/church"
           }}
-          iconItem="graduation-cap"
+          iconItem="FaChurch"
         />
         <SidebarItem
           sidebarTitle="Speakers"
@@ -59,7 +59,18 @@ export default function Sidebar() {
             // navigate('/speakers')
             // window.location.pathname = "/speakers"
           }}
-          iconItem="people-group"
+          iconItem="FaMicrophoneLines"
+        />
+        <SidebarItem
+          sidebarTitle="Users"
+          sidebarWiden={sidebarWiden}
+          handleClick={() => {
+            setSidebarWiden(!sidebarWiden)
+            setSidebarItemSelected('Users')
+            // navigate('/speakers')
+            // window.location.pathname = "/speakers"
+          }}
+          iconItem="FaCircleUser"
         />
       </div>
     </div>
