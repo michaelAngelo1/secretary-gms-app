@@ -16,6 +16,7 @@ function Register() {
     lastname: "",
     email: "",
     password: "",
+    confirmPassword: "",
     username: "",
   });
 
@@ -29,6 +30,8 @@ function Register() {
     ) {
       alert("Please fill in all fields");
       return;
+    } else if(registerData.password !== registerData.confirmPassword) {
+      alert("Confirm Password must be the same with Password. Please refill.");
     }
     console.log("Registering user", registerData);
 
@@ -37,6 +40,7 @@ function Register() {
       firstname: registerData.firstname,
       lastname: registerData.lastname,
       password: registerData.password,
+      confirmPassword: registerData.confirmPassword,
       username: registerData.username,
     }).then(res => {
       console.log("res success register: ", res.data.data.response);
@@ -45,6 +49,7 @@ function Register() {
       setLoading(false)
     }).catch(e => {
       console.log("error register: ", e.response);
+      alert("Something went wrong.")
     })
   }
 
@@ -88,7 +93,6 @@ function Register() {
           ></Input>
         </div>
       </div>
-
       
       <div className="w-full">
         <div className="text-sm mb-2">Username</div>
@@ -125,6 +129,19 @@ function Register() {
           onChange={handleChange}
         ></Input>
       </div>
+
+      <div className="w-full">
+        <div className="text-sm mb-2">Confirm Password</div>
+        <Input
+          className="bg-slate-100 border-none"
+          type="password"
+          placeholder="Confirm password"
+          name="confirmPassword" 
+          value={registerData.confirmPassword} 
+          onChange={handleChange}
+        ></Input>
+      </div>
+
       <Button className="w-[30%] bg-blue-900" onClick={handleRegister}>
         {loading ? "Loading..." : "Register"}
       </Button>

@@ -3,6 +3,7 @@ export interface RegisterProps {
   lastname: string;
   email: string;
   password: string;
+  confirmPassword: string;
   username: string;
 }
 
