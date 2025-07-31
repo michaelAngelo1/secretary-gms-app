@@ -1,4 +1,9 @@
+import { getUnverifiedUsersInstance, verifyUserInstance } from "@/config/axiosConfig";
+import { verify } from "crypto";
+import { useEffect, useState } from "react";
+
 export default function Users() {
+
   const registUsers = [
     {
       name: "Mike",
@@ -13,6 +18,41 @@ export default function Users() {
       approved: false,
     },
   ]
+
+  const [unverifiedUsers, setUnverifiedUsers] = useState([])
+
+  async function getUnverifiedUsers() {
+    const at = localStorage.getItem("at");
+    if(at) {
+      try {
+        const unvUsers = await getUnverifiedUsersInstance(at).get('');
+        if(unvUsers) {
+          console.log("Unverified users: ", unvUsers.data);
+        }
+      } catch (e) {
+        console.log("Error getting unverified users");
+      }
+    }
+  }
+
+  async function verifyUser(username: string) {
+    const at = localStorage.getItem("at");
+    if(at) {
+      try {
+        const resVerif = await verifyUserInstance(at, username).post("");
+        if(resVerif) {
+          console.log("success verif user: ", resVerif.data.data);
+        }
+      } catch (e) {
+        console.log("error verify user: ", e.response);
+      }
+    }
+  }
+
+  useEffect(() => {
+    getUnverifiedUsers();
+  }, [])
+
   return (
     <div className="w-full p-4">
       <div className="text-2xl font-bold text-blue-900">Users Registration</div>
@@ -24,7 +64,7 @@ export default function Users() {
                 <div className="font-semibold text-blue-900">{u.name}</div>
                 <div className="flex gap-3 items-center cursor-pointer">
                   <div className="text-md text-blue-900 opacity-80 hover:underline transition">Ignore</div>
-                  <div className="font-bold text-md text-slate-100 p-2 bg-blue-900 rounded-xl hover:bg-slate-100 hover:text-blue-900 transition">Verify</div>
+                  <div onClick={() => verifyUser(u.name)} className="font-bold text-md text-slate-100 p-2 bg-blue-900 rounded-xl hover:bg-slate-100 hover:text-blue-900 transition">Verify</div>
                 </div>
               </div>
             </div>

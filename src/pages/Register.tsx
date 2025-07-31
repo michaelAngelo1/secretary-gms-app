@@ -40,7 +40,7 @@ function Register() {
       firstname: registerData.firstname,
       lastname: registerData.lastname,
       password: registerData.password,
-      confirmPassword: registerData.confirmPassword,
+      password_confirmation: registerData.confirmPassword,
       username: registerData.username,
     }).then(res => {
       console.log("res success register: ", res.data.data.response);

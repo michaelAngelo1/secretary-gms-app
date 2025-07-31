@@ -28,3 +28,21 @@ export const logoutInstance = (token: string) => axios.create({
     Authorization: `Bearer ${token}`,
   },
 });
+
+export const getUnverifiedUsersInstance = (token: string) => axios.create({
+  baseURL: `${backendApiUrl}/admin/get-unverified-users`,
+  headers: {
+    accept: "*/*",
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+});
+
+export const verifyUserInstance = (token: string, username: string) => axios.create({
+  baseURL: `${backendApiUrl}/admin/approve-user/${username}`,
+  headers: {
+    accept: "*/*",
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+});

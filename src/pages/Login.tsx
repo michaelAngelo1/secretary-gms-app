@@ -30,6 +30,7 @@ function Login() {
       
       localStorage.setItem('at', res.data.data.access_token);
       if(res.data.data.access_token) {
+        console.log("user data: ", res.data.data);
         toast("Login success!")
         navigate('/')
       }
