@@ -42,6 +42,8 @@ function Login() {
       console.log("error login GMS: ", e.response.data.message);
       if(e.response.data.message.includes("User still needs to be approved")) {
         setModalOpen(true);
+      } else {
+        alert("Something went wrong. Please check your username or password.")
       }
     }).finally(() => {
       setLoading(false);
