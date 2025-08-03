@@ -1,6 +1,5 @@
 import { getUnverifiedUsersInstance, verifyUserInstance } from "@/config/axiosConfig";
-import { verify } from "crypto";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Users() {
 
@@ -19,7 +18,7 @@ export default function Users() {
     },
   ]
 
-  const [unverifiedUsers, setUnverifiedUsers] = useState([])
+  // const [unverifiedUsers, setUnverifiedUsers] = useState([])
 
   async function getUnverifiedUsers() {
     const at = localStorage.getItem("at");
@@ -44,7 +43,7 @@ export default function Users() {
           console.log("success verif user: ", resVerif.data.data);
         }
       } catch (e) {
-        console.log("error verify user: ", e.response);
+        console.log("error verify user: ", e);
       }
     }
   }
