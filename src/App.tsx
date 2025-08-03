@@ -9,6 +9,10 @@ import { SidebarProvider } from "./context/SidebarContext"
 import Church from "./pages/Church"
 import Speakers from "./pages/Speakers"
 import Users from "./pages/Users"
+import 'react-toastify/dist/ReactToastify.css';
+import './custom-toast.css';
+import EventInfo from "./pages/EventInfo"
+import CreateEvent from "./pages/CreateEvent"
 
 function App() {
 
@@ -32,8 +36,21 @@ function App() {
           <Route path="/church" element={<Church />} />
           <Route path="/speakers" element={<Speakers />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/create-event" element={<CreateEvent />} />
+          <Route path="/add-event-info" element={<EventInfo />} />
         </Routes>
-        <ToastContainer />
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </div>
     </SidebarProvider>
   )

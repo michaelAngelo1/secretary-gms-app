@@ -1,3 +1,3 @@
 export default function Requests() {
-  return <div>Requests</div>
+  return <div className="w-full p-4 flex flex-col gap-4 overflow-auto">Requests</div>
 }

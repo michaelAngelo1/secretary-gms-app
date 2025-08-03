@@ -1,0 +1,11 @@
+:root {
+  --toastify-color-dark: #1e3a8a;
+  --toastify-text-color-dark: #fff; 
+  --toastify-color-progress-dark: #fff; 
+  --toastify-icon-color-dark: #fff;
+}
+
+.Toastify__toast .Toastify__toast-body {
+  font-weight: 600;
+  font-size: 15px;
+}

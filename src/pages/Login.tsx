@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { loginInstance } from "@/config/axiosConfig";
-import { useEffect, useState } from "react";
+import GeneralModal from "@/organisms/GeneralModal";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
@@ -10,9 +11,11 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const backendApiUrl = import.meta.env.VITE_BACKEND_API_URL;
   const navigate = useNavigate();
+
+  const [modalOpen, setModalOpen] = useState(false);
+  // const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
   
   async function handleLogin() {
     if(email === "" || password === "") {
@@ -31,20 +34,19 @@ function Login() {
       localStorage.setItem('at', res.data.data.access_token);
       if(res.data.data.access_token) {
         console.log("user data: ", res.data.data);
-        toast("Login success!")
+        toast("Welcome to GMS Secretary App!")
         navigate('/')
       }
       // console.log("access token GMS: ", res.data.access_token)
     }).catch(e => {
-      console.log("error login GMS: ", e.response);
+      console.log("error login GMS: ", e.response.data.message);
+      if(e.response.data.message.includes("User still needs to be approved")) {
+        setModalOpen(true);
+      }
     }).finally(() => {
       setLoading(false);
     })
   }
-
-  useEffect(() => {
-    console.log("backend api url: ", backendApiUrl);
-  }, [])
 
   return (
     <div className="w-full lg:w-1/3 md:w-2/3 flex flex-col items-center gap-3 bg-white p-8 rounded-lg shadow-lg m-auto">
@@ -68,6 +70,15 @@ function Login() {
       </div>
       <Button className="w-[30%] bg-blue-900" onClick={() => handleLogin()}>{loading ? "Loading..." : "Sign in"}</Button>
       <div className="text-sm text-gray-500">Don't have an account? <Link to="/register" className="text-blue-500 hover:underline">Register</Link></div>
+
+      <GeneralModal
+        isOpen={modalOpen}
+        onClose={closeModal}
+        title="Please wait for admin approval of your registration."
+        buttonLabel="Okay"
+      >
+        <p className="text-sm text-slate-800">The approval time is 1x24 hours, please check again later. Thank you for waiting!</p>
+      </GeneralModal>
     </div>
   )
 }

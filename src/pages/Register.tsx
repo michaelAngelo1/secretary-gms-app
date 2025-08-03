@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { registerInstance } from "@/config/axiosConfig";
 import type { RegisterProps } from "@/config/interfaces";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router"; 
 import { toast } from "react-toastify";
 
@@ -45,7 +45,7 @@ function Register() {
     }).then(res => {
       console.log("res success register: ", res.data.data.response);
       navigate('/login')
-      toast("Register success. Please login now.")
+      toast("Your registration is sent. Please wait approval from admin.")
       setLoading(false)
     }).catch(e => {
       console.log("error register: ", e.response);
@@ -61,6 +61,22 @@ function Register() {
       [name]: value,
     }));
   };
+
+   useEffect(() => {
+    if (registerData.firstname && registerData.lastname) {
+      const generatedUsername = `${registerData.firstname.toLowerCase()}.${registerData.lastname.toLowerCase()}@gms.church.dev`;
+      setRegisterData((prevData) => ({
+        ...prevData,
+        username: generatedUsername,
+      }));
+    } else {
+      // Clear username if either field is empty
+      setRegisterData((prevData) => ({
+        ...prevData,
+        username: "",
+      }));
+    }
+  }, [registerData.firstname, registerData.lastname]);
 
   return (
     <div className="w-full lg:w-1/3 md:w-2/3 flex flex-col items-center gap-3 bg-white p-8 rounded-lg shadow-lg m-auto">
@@ -97,12 +113,13 @@ function Register() {
       <div className="w-full">
         <div className="text-sm mb-2">Username</div>
         <Input
-          className="bg-slate-100 border-none"
+          className="bg-slate-100 border-none text-gray-700"
           type="text"
-          placeholder="Enter username"
+          placeholder="Username is automatically generated"
           name="username" 
           value={registerData.username} 
           onChange={handleChange}
+          readOnly
         ></Input>
       </div>
 
