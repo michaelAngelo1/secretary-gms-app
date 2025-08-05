@@ -2,8 +2,6 @@ import axios from "axios";
 
 const backendApiUrl = import.meta.env.VITE_BACKEND_API_URL;
 
-console.log("backend api url: ", backendApiUrl);
-
 export const loginInstance = axios.create({
   baseURL: `${backendApiUrl}/login`,
   headers: {
@@ -39,7 +37,7 @@ export const getUnverifiedUsersInstance = (token: string) => axios.create({
 });
 
 export const verifyUserInstance = (token: string, username: string) => axios.create({
-  baseURL: `${backendApiUrl}/admin/approve-user/${username}`,
+  baseURL: `${backendApiUrl}/admin/approve/${username}`,
   headers: {
     accept: "*/*",
     "Content-Type": "application/json",

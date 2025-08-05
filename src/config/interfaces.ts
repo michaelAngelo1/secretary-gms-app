@@ -30,5 +30,17 @@ export interface ChurchProps {
 }
 
 export interface UnverifiedUsersProps {
+  company?: string;
+  department?: string;
+  division?: string;
+  email: string;
+  firstname: string;
+  fullname: string;
+  id_regional?: string;
+  lastname: string;
+  nickname: string;
   
+  status: string;
+  title?: string;
+  username: string;
 }
