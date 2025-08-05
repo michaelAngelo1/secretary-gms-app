@@ -31,7 +31,7 @@ export default function Users() {
           getUnverifiedUsers();
         }
       } catch (e) {
-        console.log("error verify user: ", e.response);
+        console.log("error verify user: ", e);
       }
     }
   }
