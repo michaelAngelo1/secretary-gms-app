@@ -26,7 +26,7 @@ export default function Speakers() {
 
   return (
     <div className="w-full p-4 flex flex-col gap-4 overflow-auto">
-      <div className="text-2xl font-bold text-blue-900">Users</div>
+      <div className="text-2xl font-bold text-blue-900">Speakers</div>
       <div className="flex flex-col gap-4">
         {
           speakers &&
