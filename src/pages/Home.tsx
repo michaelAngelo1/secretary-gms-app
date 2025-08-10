@@ -1,5 +1,5 @@
 import { logoutInstance } from "@/config/axiosConfig";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { jwtDecode } from "jwt-decode";
 import Sidebar from "@/organisms/Sidebar";
@@ -10,6 +10,7 @@ import Church from "./Church";
 import Users from "./Users";
 import CreateEvent from "./CreateEvent";
 import EventInfo from "./EventInfo";
+import { AuthContext } from "@/context/AuthContext";
 
 function Home() {
 
@@ -56,7 +57,9 @@ function Home() {
       }
       
     }  
-  }, [])
+  }, []);
+
+  const userDetailContext = useContext(AuthContext);
 
   return (
     <div className="w-full flex gap-3">
@@ -71,6 +74,7 @@ function Home() {
             <EventInfo setMasterView={setMasterView}/>
           : (
             <div className="w-full p-4 flex flex-col gap-4 overflow-auto">
+              <div className="text-lg font-medium text-blue-900">Welcome back, {userDetailContext ? userDetailContext.fullname : "Loading.."}</div>
               <div className="text-2xl font-bold text-blue-900">Dashboard</div>
               <div className="flex flex-col gap-4">
                 <div className="flex gap-4">

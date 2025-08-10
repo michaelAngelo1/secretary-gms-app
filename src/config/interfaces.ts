@@ -44,3 +44,37 @@ export interface UnverifiedUsersProps {
   title?: string;
   username: string;
 }
+
+export interface UserDetailProps {
+  email: string;
+  firstname: string;
+  lastname: string;
+  fullname: string;
+  username: string;
+  nickname: string;
+  status: string;
+  title?: string;
+  division?: string;
+  department?: string;
+  company?: string;
+  id_regional?: string;
+}
+
+export interface SpeakerProps {
+  id_gms_local: string;
+  title: string;
+  service_type: string;
+  salutation: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  mobile_phone: string;
+  speaker_type: string;
+  address: string;
+  description: string;
+  nij: string;
+  birth_date: string;
+  schedule_off: string;
+  meals: string;
+  transport_restriction: string;
+}
