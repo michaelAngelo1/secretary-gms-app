@@ -12,7 +12,6 @@ export default function Church() {
       try { 
         const localChurches = await getLocalChurchesInstance(at).get('');
         if(localChurches) {
-          console.log("local churches: ", localChurches);
           setLocalChurches(localChurches.data.data);
         }
       } catch (e) {
