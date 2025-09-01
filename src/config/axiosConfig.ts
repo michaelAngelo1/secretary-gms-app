@@ -46,7 +46,7 @@ export const verifyUserInstance = (token: string, username: string) => axios.cre
 });
 
 export const getLocalChurchesInstance = (token: string) => axios.create({
-  baseURL: `${backendApiUrl}/local/`,
+  baseURL: `${backendApiUrl}/local`,
   headers: {
     accept: "*/*",
     "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export const getUserDetailInstance = (token: string) => axios.create({
 });
 
 export const getSpeakersInstance = (token: string) => axios.create({
-  baseURL: `${backendApiUrl}/contact/`,
+  baseURL: `${backendApiUrl}/contact`,
   headers: {
     accept: "*/*",
     "Content-Type": "application/json",

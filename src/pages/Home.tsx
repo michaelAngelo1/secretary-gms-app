@@ -74,7 +74,7 @@ function Home() {
             <EventInfo setMasterView={setMasterView}/>
           : (
             <div className="w-full p-4 flex flex-col gap-4 overflow-auto">
-              <div className="text-lg font-medium text-blue-900">Welcome back, {userDetailContext ? userDetailContext.fullname : "Loading.."}</div>
+              <div className="text-lg font-medium text-blue-900">Welcome back, {userDetailContext?.firstname }</div>
               <div className="text-2xl font-bold text-blue-900">Dashboard</div>
               <div className="flex flex-col gap-4">
                 <div className="flex gap-4">
