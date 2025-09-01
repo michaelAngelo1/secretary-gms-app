@@ -5,15 +5,15 @@ import { useContext, useEffect, useState } from "react";
 
 export default function Users() {
 
-  const [unverifiedUsers, setUnverifiedUsers] = useState<UnverifiedUsersProps[]>([])
+  const [unverifiedUsers, setUnverifiedUsers] = useState<UnverifiedUsersProps[]>([]);
+  const auth = useContext(AuthContext);
 
   async function getUnverifiedUsers() {
     const at = localStorage.getItem("at");
-    if(at) {
+    if (at) {
       try {
         const unvUsers = await getUnverifiedUsersInstance(at).get('');
-        if(unvUsers) {
-          // console.log("Unverified users: ", unvUsers.data.data);
+        if (unvUsers) {
           setUnverifiedUsers(unvUsers.data.data);
         }
       } catch (e) {
@@ -24,10 +24,10 @@ export default function Users() {
 
   async function verifyUser(username: string) {
     const at = localStorage.getItem("at");
-    if(at) {
+    if (at) {
       try {
         const resVerif = await verifyUserInstance(at, username).post("");
-        if(resVerif) {
+        if (resVerif) {
           console.log("success verif user: ", resVerif.data.data);
           getUnverifiedUsers();
         }
@@ -36,20 +36,19 @@ export default function Users() {
       }
     }
   }
-  
-  const userDetailContext = useContext(AuthContext);
 
   useEffect(() => {
     getUnverifiedUsers();
   }, []);
 
+  if (!auth) return <div>Loading...</div>;
 
   return (
     <div className="w-full p-4 flex flex-col gap-4 overflow-auto">
       <div className="text-2xl font-bold text-blue-900">Users Registration</div>
 
       {
-        userDetailContext && userDetailContext.username === "Admin.GMS@gms.church" ?
+        auth.user && auth.user.username === "Admin.GMS@gms.church" ?
           <div className="flex flex-col gap-4 mt-6">
             {
               unverifiedUsers.map((u) => (

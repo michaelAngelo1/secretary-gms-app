@@ -1,8 +1,7 @@
-import { Route, Routes, useNavigate } from "react-router"
+import { Route, Routes } from "react-router"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Home from "./pages/Home"
-import { useEffect, useState } from "react"
 import { ToastContainer } from "react-toastify"
 import Requests from "./pages/Requests"
 import { SidebarProvider } from "./context/SidebarContext"
@@ -11,39 +10,12 @@ import Speakers from "./pages/Speakers"
 import Users from "./pages/Users"
 import 'react-toastify/dist/ReactToastify.css';
 import './custom-toast.css';
-import { AuthContext } from "./context/AuthContext"
-import type { UserDetailProps } from "./config/interfaces"
-import { getUserDetailInstance } from "./config/axiosConfig"
+import { AuthProvider } from "./context/AuthContext"
 
 function App() {
 
-  const navigate = useNavigate();
-
-  const [userDetail, setUserDetail] = useState<UserDetailProps>();
-
-  async function fetchUserDetail(at: string) {
-    if(at) {
-      try {
-        const userDetail = await getUserDetailInstance(at).get("");
-        if(userDetail) {
-          setUserDetail(userDetail.data.data);
-          navigate('/');
-        }
-      } catch (e) {
-        console.log("error fetch user detail: ", e);
-      }
-    }
-  }
-
-  useEffect(() => {
-    const at = localStorage.getItem("at");
-    if(at) {
-      fetchUserDetail(at);
-    } 
-  }, [])
-
   return (
-    <AuthContext.Provider value={userDetail}>
+    <AuthProvider>
       <SidebarProvider>
         <div className="bg-slate-100 h-screen flex p-4">
           <Routes>
@@ -69,7 +41,7 @@ function App() {
           />
         </div>
       </SidebarProvider>
-    </AuthContext.Provider>
+    </AuthProvider>
   )
 }
 

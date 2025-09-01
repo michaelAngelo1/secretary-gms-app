@@ -59,8 +59,16 @@ function Home() {
     }  
   }, []);
 
-  const userDetailContext = useContext(AuthContext);
-
+  const auth = useContext(AuthContext);
+  
+  useEffect(() => {
+    if (auth && !auth.user) {
+      navigate("/login");
+    }
+  }, [auth?.user, navigate]);
+  
+  if (!auth) return <div>Loading...</div>;
+  if (auth.user === undefined) return <div>Loading user...</div>;
   return (
     <div className="w-full flex gap-3">
       <Sidebar />
@@ -74,7 +82,7 @@ function Home() {
             <EventInfo setMasterView={setMasterView}/>
           : (
             <div className="w-full p-4 flex flex-col gap-4 overflow-auto">
-              <div className="text-lg font-medium text-blue-900">Welcome back, {userDetailContext?.firstname }</div>
+              <div className="text-lg font-medium text-blue-900">Welcome back, {auth.user.fullname}</div>
               <div className="text-2xl font-bold text-blue-900">Dashboard</div>
               <div className="flex flex-col gap-4">
                 <div className="flex gap-4">
