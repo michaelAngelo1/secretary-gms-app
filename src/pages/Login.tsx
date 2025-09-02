@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { loginInstance } from "@/config/axiosConfig";
+import { AuthContext } from "@/context/AuthContext";
 import GeneralModal from "@/organisms/GeneralModal";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
@@ -17,6 +18,8 @@ function Login() {
   // const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
   
+  const auth = useContext(AuthContext);
+
   async function handleLogin() {
     if(email === "" || password === "") {
       alert("Please fill in all fields");
@@ -28,16 +31,17 @@ function Login() {
     await loginInstance.post('', {
       username: email,
       password: password
-    }).then(res => {
+    }).then(async res => {
       console.log("res login GMS token: ", res.data.data.access_token);
       
       localStorage.setItem('at', res.data.data.access_token);
-      if(res.data.data.access_token) {
-        console.log("user data: ", res.data.data);
-        toast("Welcome to GMS Secretary App!")
-        navigate('/')
+
+      if(auth) {
+        await auth.refreshUser();
       }
-      // console.log("access token GMS: ", res.data.access_token)
+      toast("Welcome to GMS Secretary App!")
+      navigate('/')
+      
     }).catch(e => {
       console.log("error login GMS: ", e.response.data.message);
       if(e.response.data.message.includes("User still needs to be approved")) {
