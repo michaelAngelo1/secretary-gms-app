@@ -62,7 +62,7 @@ function Home() {
   const auth = useContext(AuthContext);
   
   useEffect(() => {
-    if (auth && !auth.user) {
+    if (auth && auth.user === null) {
       navigate("/login");
     }
   }, [auth?.user, navigate]);

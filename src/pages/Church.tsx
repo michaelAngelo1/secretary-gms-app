@@ -1,40 +1,31 @@
-import { getLocalChurchesInstance } from "@/config/axiosConfig";
-import type { ChurchProps } from "@/config/interfaces";
-import { useEffect, useState } from "react";
+import { useChurch } from "@/hooks/useChurch";
+import { useEffect } from "react";
 
 export default function Church() {
 
-  const [localChurches, setLocalChurches] = useState<ChurchProps[]>([]);
-    
-  async function fetchLocalChurches() {
-    const at = localStorage.getItem("at");
-    if(at) {
-      try { 
-        const localChurches = await getLocalChurchesInstance(at).get('');
-        if(localChurches) {
-          setLocalChurches(localChurches.data.data);
-        }
-      } catch (e) {
-        console.log("error fetch local churches: ", e);
-      }
-    }
-  }
+  const { churches, fetchChurches, loading } = useChurch();
 
   useEffect(() => {
-    fetchLocalChurches();
+    fetchChurches();
   }, [])
 
   return (
     <div className="w-full p-4 flex flex-col gap-4 overflow-auto">
       <div className="text-2xl font-bold text-blue-900">Churches</div>
-      <div className="flex flex-col gap-4">
-        {
-          localChurches &&
-          localChurches.map((c) => (
-            <div>{c.name}</div>
-          ))
-        }
-      </div>
+      {
+        loading ?
+          <div>Loading...</div>
+        :
+          <div className="flex flex-col gap-4">
+            {
+              churches &&
+              churches.map((c) => (
+                <div>{c.name}</div>
+              ))
+            }
+          </div>
+
+      }
     </div>
   )
 }
